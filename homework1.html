@@ -1,0 +1,135 @@
+<!DOCTYPEhtml>
+<html>
+<head>
+<style>
+   .input:hover{border:solid 2px highlight}
+   #main{
+         position:absolute;
+		 width:400px;
+		 height:430px;
+		 border:solid 2px black;
+		 left:200px;
+   }
+   #tips{
+         position:absolute;
+		 width:400px;
+		 height:25%;
+		 border:solid 2px black;
+		 bottom:0px;
+		 left:200px;
+		 
+   }
+   #conf{
+         position:absolute;
+         width:300px;
+         height:430px;
+         border:solid 2px black;
+         left:900px;
+   }
+
+</style>
+</head>
+<body>
+
+<div id="main">
+  <h2>Club Register</h2>
+  <form>
+      Input firstname:<br/><input type="text" class="input" onfocusin="enterTextbox1() ,tip1()" onfocusout="leaveTextBox1(),tipout1()" id="input1">
+	<br/>
+	<br/>
+	  Input Familyname:<br/><input type="text" class="input" onfocusin="enterTextbox2(),tip2()" onfocusout="leaveTextBox2(),tipout2()" id="input2">
+	<br/>
+	<br/>
+	  Input MobileNumber:<br/><input type="text"  class="input" onfocusin="enterTextbox3(),tip3()" onfocusout="leaveTextBox3(),tipout3()" id="input3">
+	<br/>
+	<br/>
+	  Input select your grade(1-4):<select name="grades" class="input"  onfocusin="tip4()" onfocusout="tipout4()" id="input4">
+	                          <option value="1">1</option>
+	                          <option value="2">2</option>
+	                          <option value="3">3</option>
+	                          <option value="3">3</option>
+	                          <option value="4">4</option>
+							</select>
+	<br/>
+	<br/>
+	  Input year born:<br/><input type="date" class="input" onfocusin="tip5()" onfocusout="tipout5()"id="input5">
+	<br/>
+	<br/>
+  </form>	
+<button onclick="confirm()" >Submit</button>
+</div>
+<div id="tips">
+<h2>Tips&Hits</h2>
+<br/>
+<br/>
+<p id="hints"></p>
+</div>
+<div id="conf">
+  <h2>Varify the Information</h2>
+  <p id="confirm1"></p>
+
+</div>
+<script>
+   function enterTextbox1(){
+                      input1.style.background="lightgrey";
+   }
+   function leaveTextBox1(){
+                      input1.style.background="white";
+   }
+   function enterTextbox2(){
+                      input2.style.background="lightgrey";
+   }
+   function leaveTextBox2(){
+                      input2.style.background="white";
+   }
+   function enterTextbox3(){
+                      input3.style.background="lightgrey";
+   }
+   function leaveTextBox3(){
+                      input3.style.background="white";
+   }
+   function tip1(){
+                   document.getElementById("hints").innerHTML="请输入你的名 Please enter your first name";
+   }
+   function tipout1(){
+                   document.getElementById("hints").innerHTML="";
+   }
+   function tip2(){
+                   document.getElementById("hints").innerHTML="请输入您的姓 Please enter your family name";
+   }
+   function tipout2(){
+                   document.getElementById("hints").innerHTML="";
+   }
+   function tip3(){
+                   document.getElementById("hints").innerHTML="请输入您的电话 Please enter your phone number";
+   }
+   function tipout3(){
+                   document.getElementById("hints").innerHTML="";
+   }
+   function tip4(){
+                   document.getElementById("hints").innerHTML="请选择你的年级 Please select your grade";
+   }
+   function tipout4(){
+                   document.getElementById("hints").innerHTML="";
+   }
+   function tip5(){
+                   document.getElementById("hints").innerHTML="请输入您的出生年月 Please select your birth";
+   }
+   function tipout5(){
+                   document.getElementById("hints").innerHTML="";
+   }
+   function confirm(){
+     var name = document.getElementById("input1").value + " " + document.getElementById("input2").value;
+                   document.getElementById("confirm1").innerHTML="Dear "+ name
+                    + ":<br/>Thank you for registering, we will contact you on " + document.getElementById("input3").value+
+                    "<br/><br/><br/>Grade:" + document.getElementById("input4").value+
+                    "<br/><br/>Born:"+document.getElementById("input5").value+"<br/><br/><input type='submit' value='Confirm'>";
+                   
+                  
+   }
+   
+</script>
+
+</body>
+
+</html>

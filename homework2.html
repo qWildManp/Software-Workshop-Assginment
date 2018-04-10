@@ -1,0 +1,67 @@
+<!DOCTYPEhtml>
+<html>
+    <head>
+        <title>Money Exchange</title>
+    </head>
+    <body>
+        <h1>Currency exchange</h1>
+        <input type="number" id="m1" placeholder="money1">                              
+        <select name="money1" id="money1">
+            <option value="US Dollar">US Dollar</option>
+            <option value="Euro">Euro</option>
+            <option value="Chinese Yuan">Chinese Yuan</option>
+            <option value="Hong Kong Dollar">Hong Kong Dollar</option>
+        </select>
+        <br/>
+        <br/>
+        <input type="number" id="m2" placeholder="money2" readonly >                   
+        <select name="money2" id="money2">
+                <option value="US Dollar">US Dollar</option>
+                <option value="Euro">Euro</option>
+                <option value="Chinese Yuan">Chinese Yuan</option>
+                <option value="Hong Kong Dollar">Hong Kong Dollar</option>
+        </select>
+        <br/>
+        <br/>
+        <button onclick="exchange()">Convert</button>                                 
+        <script>
+            var m1=document.getElementById("m1");                            
+            var m2=document.getElementById("m2");
+            function exchange() {   
+                var money1=document.getElementById("money1").value;
+                var money2=document.getElementById("money2").value;
+                var orignmoney;  
+                orignmoney=m1.value*moneytype(money1);                                  /*set all types of money into American standar d*/
+                if(money1==money2){                                                     /*cheak the two money types are same or not*/ 
+                    m2.value=m1.value;                                                  /*same*/
+                     }
+                else{
+                    switch(money2){                                                     /*different*/
+                        case 'US Dollar':m2.value=orignmoney/1;
+                        break;
+                        case 'Hong Kong Dollar':m2.value=orignmoney/0.12;
+                        break;
+                        case 'Euro':m2.value=orignmoney/1.2;
+                        break;
+                        case 'Chinese Yuan':m2.value=orignmoney/0.15;
+                        break;
+                    }
+                }
+            function moneytype(money1){                                               /*The function uesd to cheak the money type and return the 
+                                                                                        exchang rate*/
+              switch(money1){                     
+                 case 'US Dollar': return 1;
+                 break;
+                 case 'Hong Kong Dollar': return 0.12;
+                 break;
+                 case 'Euro':return 1.2;
+                 break;
+                 case 'Chinese Yuan':return 0.15;
+                 break;
+                }
+            }
+         }
+             
+        </script>
+    </body>
+</html>
