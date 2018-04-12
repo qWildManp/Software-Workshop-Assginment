@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+<table border=1>
+<tr>
+<th colspan=5>Task table</th>
+</tr>
+<tr>
+<th>Task1</th>
+<th>Task2</th>
+<th>Task3</th>
+<th>Task4</th>
+<th>Task5</th>
+
+</tr>
+<tr>
+<td><p id="demo"></p></td>
+<td><p id="demo1"></p></td>
+<td><p id="demo2"></p></td>
+<td><p id="demo3"></p></td>
+<td><p id="demo4"></p></td>
+<br/>
+</tr>
+
+</table>
+
+<script>
+var i;
+for (i =0; i<10; i++) {
+    document.getElementById("demo").innerHTML += i + "<br>";
+}
+var i;
+for (i =5; i<10; i++) {
+    document.getElementById("demo1").innerHTML += i + "<br>";
+}
+var i;
+for (i =5; i<=50; i+=5) {
+    document.getElementById("demo2").innerHTML += i + "<br>";
+}
+var i;
+for (i =10; i>0; i--) {
+    document.getElementById("demo3").innerHTML += i + "<br>";
+}
+var i;
+for (i =1; i<10; i+=2) {
+    document.getElementById("demo4").innerHTML += i + "<br>";
+}
+</script>
+
+</body>
+</html>

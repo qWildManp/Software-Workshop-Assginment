@@ -1,0 +1,24 @@
+<!DOCTYPEHTML>
+<html>
+<head>
+<style>
+# table{
+style="border-color:green";
+}
+</style>
+</head>
+<body>
+<table border=5 id="table" style="border-color:green">
+</table>
+<script>
+	var text="<tr><th>Number</th><th>Number x10</th><th>Number ^2</th></tr>";
+	var i;
+	for(i=1;i<=10;i++){
+		text+="<tr><td>"+i+"</td><td>"+i*10+"</td><td>"+i*i+"</td></tr>";
+	}
+	document.getElementById("table").innerHTML=text;
+
+</script>
+</body>
+
+</html>
