@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Class Exercise</title>
+       <style>
+        table {
+            border:4px solid green;
+            border-collapse:collapse;
+        }
+        td{
+            border:2px solid green;
+            border-collapse:collapse;
+        }
+        th{
+            border:2px solid green;
+            border-collapse:collapse;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="tab"></div> 
+        
+        <script>
+            var n; /*the table number*/
+            var i;/*number in row*/
+            for(n=0;n<4;n++){
+                 var text="<table><tr><th>Number</th><th>Number*10</th><th>Number^2</th></tr>"
+                for(i=1;i<=5;i++){ 
+                    text+="<tr><td>"+(n*5+i)+"</td><td>"+(n*5+i)*10+"</td><td>"+(n*5+i)**2+"</td></tr>"
+                    if((n*5+i)==17){      /*if number is greater than 17 jump out the loop */
+                        break;
+                    }
+
+                }
+                text+="</table><br/>"
+                document.getElementById("tab").innerHTML+=text;
+            }
+
+        </script>        
+    </body>
+</html>
