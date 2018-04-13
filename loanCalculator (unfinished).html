@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<head>
+	<title></title>
+	<style>
+		#borad{
+			border: 2px solid blue;height:1000px;	}
+        #container{
+            position:relative;
+            background-color:lightblue;
+            width:60%;
+			height:90%;
+            left:20%;
+            right:10%;
+			top:1%;
+        }
+        #personal{
+            position: relative;
+            left:10%;
+        }
+        #below{
+            position: relative;
+            background-color:blanchedalmond;
+            width:80%;
+            left:10%;
+			top:20px;
+            height:450px;
+        }
+		#belowright{position:absolute;right:20px;}
+		#belowleft{position: absolute;left:20px;}
+		
+		#container td{border:4px solid blanchedalmond;}
+		#container th{border:4px solid blanchedalmond;}
+		
+		#below table{border:4px solid darkblue;text-align: center;}
+		#below th{border:1px solid darkblue;background-color:darkblue;color:yellow;}
+		#below td{border:2px solid lightblue; background-color:lightblue;color:white;}
+		
+		#personal table{width:80%;}
+		
+		#belowright table{width:250px;}
+        #belowleft  table{width:250px;}
+	</style>
+</head>
+<html>
+<body>
+	<div id="borad">
+	<div id="container">
+    <h2 style="text-align:center">Loan Calculator</h2>
+    <div id="personal">
+	<table border=4 style=" border-color:blanchedalmond;border-collapse:collapse">
+		<tr>
+			<th colspan=3>Personal Details</th>
+		</tr>
+		<tr>
+				<td>
+					First name:<br/><input type="text" id="firstname">
+				</td>
+				<td colspan=2>
+					Family name：<br/><input type="text" id="familyname">
+				</td>
+		<tr>
+				<td colspan=3>
+					E-mail address:<br/><input type="E-mail" id="email">
+				</td>
+		</tr>
+		<tr>
+				<th colspan=3>Loan Request</th>
+		</tr>
+		<tr>
+				<td>
+					Loan Amount:<br/><input type="number" id="amount">
+				</td>
+				<td>
+					For how many months(12-120):<br/><input type="number" id="month" min="12" max="120">
+				</td>
+				<td>Strat payment(within 6 months):<br/>
+					<select id="paymentmonth">
+						<option value="Jan">Jan</option>
+						<option value="Feb">Feb</option>
+						<option value="Mar">Mar</option>
+						<option value="Apr">Apr</option>
+						<option value="May">May</option>
+						<option value="June">June</option>
+						<option value="July">July</option>
+						<option value="Aug">Aug</option>
+						<option value="Spet">Spet</option>
+						<option value="Oct">Oct</option>
+						<option value="Nov">Nov</option>
+						<option value="Dec">Dec</option>
+					</select>
+				</td>
+		</tr>
+		<tr>
+				<td colspan=3>
+					<input type="radio" name="insurance" value="no cover required" checked>No cover required<br/>
+					<input type="radio" name="insurance" value="employment cover">Employment Cover-in the event you lose your job up to 3 months<br/>
+					<input type="radio" name="insurance" value="part cover 12">Part Cover-up to 12 months<br/>
+					<input type="radio" name="insurance" value="full cover">Full Cover -In the event you cannot work again!
+				</td>
+		</tr>
+		<tr>
+			<td>
+				<button onclick="calculateRepayment()">Calcualte</button>
+			</td>
+			<td colspan=2 >Message:<p id="message"></td>
+		</tr>		
+    </table>
+    </div>
+<div id="below">
+	<h1 style="text-align:center;color:green" id="hits"></h1>
+	<div id="belowleft">
+		<table>
+			<tr><th>Amount Requested</th></tr>
+			<tr><td id="AR"></td></tr>
+		</table>
+		<br/>
+		<table>
+			<tr><th>Total Interest</th></tr>
+			<tr><td>BBBBB</td></tr>
+		</table>
+		<br/>
+		<table>
+			<tr><th>Insurance</th></tr>
+			<tr><td>CCCCC</td></tr>
+		</table>
+		<br/>
+		<table>
+			<tr><th>Total Repayment</th></tr>
+			<tr><td>DDDDD</td></tr>
+		</table>
+	</div>
+	<div id="belowright">
+		<table>
+			<tr><th>Monthly Payments</th></tr>
+			<tr><td style=" font-size:50px;">EEEEE</td></tr>
+		</table>
+		<br/><br/><br/>
+		<table>
+			<tr><th>First Payment</th></tr>
+			<tr><td>FFFFF</td></tr>
+		</table>
+		<br/>
+		<table>
+			<tr><th>Last Payment</th></tr>
+			<tr><td>GGGGG</td></tr>
+		</table>
+	</div>
+
+	
+
+</div>
+
+	
+
+	<!-- HTML code here -->
+
+</div >
+</div>
+
+<script>
+/* Javascript here 
+	- 
+	- you can add extra functions
+*/
+
+
+function calculateRepayment(){
+	var firname=document.getElementById("firstname").value;
+	var famname=document.getElementById("familyname").value;
+	var email=document.getElementById("email").value;
+	var amount=document.getElementById("amount").value;
+	var month=document.getElementById("month").value;
+	if(!firname||!famname||!email||!amount||!month){
+		document.getElementById("message").innerHTML="<b style='color:red'>"+"Erro! Please Complte your personal details"+"</b>";
+		document.getElementById("hits").innerHTML="";
+		document.getElementById("AR").innerHTML="";
+	}
+	else{
+	document.getElementById("message").innerHTML="<b style='color:green'>"+"Complted !"+"</b>";
+	document.getElementById("hits").innerHTML="Dear "+firname+famname+" the result is";
+	document.getElementById("AR").innerHTML=amount;
+	}
+}
+
+function getInsurance(){ // use parameters and return the value from this function
+
+return
+}
+
+</script>
+
+</body>
+</html>
