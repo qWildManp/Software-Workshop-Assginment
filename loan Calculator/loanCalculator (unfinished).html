@@ -190,41 +190,41 @@ function userdetail(){ /*function to check if user complete his(hers) details*/
 	}
 }
 function month(){                   /*the function to show the options of which 6 months can users to pay*/
-				var text="";
-                var present=new Date();			/*get present time*/
-                var presentmonth=present.getMonth();/*get presentmonth*/
-				var standerd=present.getMonth();	/*regard present month as a origin month*/ 	
-				var month= new Array(12)		/*define each number for months*/
-			    month[0]="January"
-                month[1]="February"
-                month[2]="March"
-                month[3]="April"
-                month[4]="May"
-                month[5]="June"
-                month[6]="July"
-                month[7]="August"
-                month[8]="September"
-                month[9]="October"
-                month[10]="November"
-                month[11]="December"
-				month[12]="Next year January"
-				month[13]="Next year February"
-				month[14]="Next year March"
-				month[15]="Next year April"
-				month[16]="Next year May"
-                for( presentmonth; presentmonth<standerd+6; presentmonth++){/*loops to print the month options(no more than 6 months from present month)*/
-                    text+="<option>"+month[presentmonth]+"</option>"
-                }
-                document.getElementById("paymentmonth").innerHTML=text;
+	var text="";
+	var present=new Date();			/*get present time*/
+	var presentmonth=present.getMonth();/*get presentmonth*/
+	var standerd=present.getMonth();	/*regard present month as a origin month*/ 	
+	var month= new Array(12)		/*define each number for months*/
+	month[0]="January"                
+	month[1]="February"
+	month[2]="March"
+	month[3]="April"
+	month[4]="May"
+	month[5]="June"
+	month[6]="July"
+	month[7]="August"
+	month[8]="September"
+	month[9]="October"
+	month[10]="November"
+	month[11]="December"
+	month[12]="Next year January"
+	month[13]="Next year February"
+	month[14]="Next year March"
+	month[15]="Next year April"
+	month[16]="Next year May"
+	for( presentmonth; presentmonth<standerd+6; presentmonth++){/*loops to print the month options(no more than 6 months from present month)*/
+    	text+="<option>"+month[presentmonth]+"</option>"
+	}
+	document.getElementById("paymentmonth").innerHTML=text;
 }
 function limitmoney(){                 /*function to limit the moneyamount that users input */
-		var money=document.getElementById("amount").value;
-		if(money>10000){
-			document.getElementById("amount").value=10000;
-		}
-		else if(money<1000){
-			document.getElementById("amount").value=1000;
-		}
+	var money=document.getElementById("amount").value;
+	if(money>10000){
+		document.getElementById("amount").value=10000;
+	}
+	else if(money<1000){
+		document.getElementById("amount").value=1000;
+	}
 }
 function limittime(){                /*function to limit the timeamount that users input */
 	var time=document.getElementById("month").value;
@@ -242,7 +242,7 @@ function getInsurance(){                  /*user chose a kind of insurance and r
 		if(insurance[i].checked){
 			return insurance[i].value;
 		}
-}
+    }
 }
 function CalculateRepayment(){                      /*function to calculate repayment*/
 	var monthlength=document.getElementById("month").value;
@@ -266,20 +266,20 @@ function CalculateRepayment(){                      /*function to calculate repa
 	}
 }
 function changeTwoDecimal(x){ 	             /*function to limit float number*/
-/*the method to deal with the number that decimal digits is more than 2*/
-var f_x = parseFloat(x);                     /*let all types of var become float*/
-f_x = Math.round(f_x*100)/100;               /*first let number mutiple 100 and then divied by 100, the unmber will keep two decimal digits*/
-/*the method to deal with the number that decimal digits is less than 2*/                   
-var s_x = f_x.toString();                    /*change the var type into string so that we can add "."and"0"behind the number*/
-var pos_decimal = s_x.indexOf('.');          /*check the number "." in a number*/
-if (pos_decimal < 0){						/*if a number doesn't have ".",then add one*/
-pos_decimal = s_x.length;                   /*input string length*/
-s_x += '.';									/*add "."*/
-}
-while (s_x.length <= pos_decimal + 2){      /*function to add "0",if number length is shorter than (numberlength+2)*/
-s_x += '0';									/*add "0"*/
-}
-return s_x;									/*return fixed number*/
+    /*the method to deal with the number that decimal digits is more than 2*/
+    var f_x = parseFloat(x);                     /*let all types of var become float*/
+    f_x = Math.round(f_x*100)/100;               /*first let number mutiple 100 and then divied by 100, the unmber will keep two decimal digits*/
+    /*the method to deal with the number that decimal digits is less than 2*/                   
+    var s_x = f_x.toString();                    /*change the var type into string so that we can add "."and"0"behind the number*/
+    var pos_decimal = s_x.indexOf('.');          /*check the number "." in a number*/
+    if (pos_decimal < 0){						/*if a number doesn't have ".",then add one*/
+    pos_decimal = s_x.length;                   /*input string length*/
+    s_x += '.';									/*add "."*/
+    }
+    while (s_x.length <= pos_decimal + 2){      /*function to add "0",if number length is shorter than (numberlength+2)*/
+    s_x += '0';									/*add "0"*/
+    }
+    return s_x;									/*return fixed number*/
 }
 
 </script>
