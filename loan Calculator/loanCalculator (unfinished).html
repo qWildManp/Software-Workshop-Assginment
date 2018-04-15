@@ -171,7 +171,7 @@ function userdetail(){ /*function to check if user complete his(hers) details*/
 	var year= time.getFullYear();
 	var totalrepay= parseFloat(getInsurance())+parseFloat(CalculateRepayment());
 	var totalinterest=parseFloat(CalculateRepayment())-parseFloat(amount);
-	var monthlypayment=parseInt(CalculateRepayment())/parseInt(month);
+	var monthlypayment=parseFloat(totalrepay)/parseFloat(month);
 	if(!firname||!famname||!email||!amount||!month||!pm){ /*if user miss any detail*/
 		document.getElementById("message").innerHTML="<b id='erro'>"+"Erro! Please Complte your personal details"+"</b>";
 		document.getElementById("hits").innerHTML="";
@@ -250,12 +250,12 @@ function limitmoney(){                 /*function to limit the moneyamount that 
 		document.getElementById("amount").value=1000;
 	}
 }
-function limittime(){                /*function to limit the timeamount that users input */
-	var time=document.getElementById("month").value;
-	if(time>120){
+function limittime(){                /*function to limit the time request that users input */
+	var month=document.getElementById("month").value;
+	if(month>120){
 		  document.getElementById("month").value=120;
 	}
-	else if(time<12){
+	else if(month<12){
 		  document.getElementById("month").value=12;
 	}
 }
