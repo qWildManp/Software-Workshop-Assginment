@@ -91,10 +91,12 @@
 		</tr>
 		<tr>
 				<td colspan=3>
-					<input type="radio" name="insurance" value="0" checked>No cover required<br/>
-					<input type="radio" name="insurance" value="100">Employment Cover-in the event you lose your job up to 3 months<br/>
-					<input type="radio" name="insurance" value="150">Part Cover-up to 12 months<br/>
-					<input type="radio" name="insurance" value="300">Full Cover -In the event you cannot work again!
+					<form id="context">
+					<input type="radio" name="insurance" value="N" checked>No cover required<br/>
+					<input type="radio" name="insurance" value="EC">Employment Cover-in the event you lose your job up to 3 months<br/>
+					<input type="radio" name="insurance" value="PC">Part Cover-up to 12 months<br/>
+					<input type="radio" name="insurance" value="FC">Full Cover -In the event you cannot work again!
+					</form>
 				</td>
 		</tr>
 		<tr>
@@ -120,7 +122,7 @@
 		<br/>
 		<table>
 			<tr><th>Insurance</th></tr>
-			<tr><td id="Insurance"></td></tr>
+			<tr><td  id="Insurance"></td></tr>
 		</table>
 		<br/>
 		<table>
@@ -209,7 +211,6 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("hits").innerHTML="Dear "+firname+famname+" this is yours loan calculation!";
 		document.getElementById("AR").innerHTML=changeTwoDecimal(amount);
 		document.getElementById("FP").innerHTML=pm+"<br/>"+year;
-		document.getElementById("Insurance").innerHTML=changeTwoDecimal(getInsurance());
 		document.getElementById("TR").innerHTML=changeTwoDecimal(totalRepay);
 		document.getElementById("TI").innerHTML=changeTwoDecimal(totalInterest);
 		document.getElementById("monthlyPayment").innerHTML=changeTwoDecimal(monthlyPayment);
@@ -220,7 +221,7 @@ function month(){                   /*the function to show the options of which 
 	var present=new Date();			/*get present time*/
 	var presentMonth=present.getMonth();/*get presentmonth*/
 	var standerd=present.getMonth();	/*regard present month as a origin month*/ 	
-	var month= new Array(12)		/*define each number for months*/
+	var month= new Array(17)		/*define each number for months*/
 	month[0]="January"                
 	month[1]="February"
 	month[2]="March"
@@ -269,12 +270,30 @@ function limitTime(){                /*function to limit the time request that u
 //FUNCTION FOR CALCULATE
 
 function getInsurance(){                  /*user chose a kind of insurance and return a certain value*/
-	var insurance=document.getElementsByName('insurance')
-	for(var i=0,length=insurance.length;i<length;i++){
-		if(insurance[i].checked){
-			return insurance[i].value;
-		}
-    }
+	var insurance=document.getElementById("context").insurance.value;
+	var fee=0;
+	switch(insurance){
+		case "N":{
+		fee=0;
+		document.getElementById("Insurance").innerHTML=fee;
+		return fee;
+		break;}
+		case "EC":{
+		fee=100;
+		document.getElementById("Insurance").innerHTML=fee;
+		return fee;
+		break;}
+		case "PC":{
+		fee=150;
+		document.getElementById("Insurance").innerHTML=fee;
+		return fee;
+		break;}
+		case "FC":{
+		fee=300;
+		document.getElementById("Insurance").innerHTML=fee;
+		return fee;
+		break;}
+	}
 }
 function CalculateRepayment(){                      /*function to calculate repayment*/
 	var month=document.getElementById("month").value;
