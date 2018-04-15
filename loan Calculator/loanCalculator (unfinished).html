@@ -163,8 +163,10 @@ function userdetail(){ /*function to check if user complete his(hers) details*/
 	var email=document.getElementById("email").value;			/*user email address*/
 	var amount=document.getElementById("amount").value;			/*user money amount*/
 	var month=document.getElementById("month").value;			/*user request time*/
+	var month_s=month.toString();                               /*change month value into string type*/
+	var monthcheck=month_s.indexOf('.')							/*count the number '.' in user's time request*/
 	var pm=document.getElementById("paymentmonth").value;       /*user paymonth*/
-	var mailcheck1=email.indexOf('@');	/*count the number of @ in email*/
+	var mailcheck1=email.indexOf('@');	/*count the number of '@' in email*/
 	var time= new Date();
 	var year= time.getFullYear();
 	var totalrepay= parseFloat(getInsurance())+parseFloat(CalculateRepayment());
@@ -175,12 +177,12 @@ function userdetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("hits").innerHTML="";
 		document.getElementById("AR").innerHTML="";
 		document.getElementById("FP").innerHTML="";
-		document.getElementById("Insurance").innerHTML="";
+		document.getElementById("Insurance").innerHTML="";	
 		document.getElementById("TR").innerHTML="";
 		document.getElementById("TI").innerHTML="";
 		document.getElementById("monthlypayment").innerHTML="";
 	}
-	else if (mailcheck1<0){ /*check user's email format*/
+	else if (mailcheck1<0){ /*check user's email format.If dont have symbol '@',output erro message*/
 		document.getElementById("message").innerHTML="<b id='erro'>"+"Erro! Incorrect mailbox format"+"</b>";
 		document.getElementById("hits").innerHTML="";
 		document.getElementById("AR").innerHTML="";
@@ -190,15 +192,25 @@ function userdetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("TI").innerHTML="";
 		document.getElementById("monthlypayment").innerHTML="";
 	}
+	else if(monthcheck>0){/*check user's time request. If it is float,output erro message*/
+		document.getElementById("message").innerHTML="<b id='erro'>"+"Erro! Incorrect month request Please input an intager"+"</b>";
+		document.getElementById("hits").innerHTML="";
+		document.getElementById("AR").innerHTML="";
+		document.getElementById("FP").innerHTML="";
+		document.getElementById("Insurance").innerHTML="";
+		document.getElementById("TR").innerHTML="";
+		document.getElementById("TI").innerHTML="";
+		document.getElementById("monthlypayment").innerHTML="";
+	}
 	else{ /*if all user detial is finished and correct*/
-	document.getElementById("message").innerHTML="<b id='right'>"+"Completed !"+"</b>";
-	document.getElementById("hits").innerHTML="Dear "+firname+famname+" this is yours loan calculation!";
-	document.getElementById("AR").innerHTML=changeTwoDecimal(amount);
-	document.getElementById("FP").innerHTML=pm+"<br/>"+year;
-	document.getElementById("Insurance").innerHTML=getInsurance();
-	document.getElementById("TR").innerHTML=changeTwoDecimal(totalrepay);
-	document.getElementById("TI").innerHTML=changeTwoDecimal(totalinterest);
-	document.getElementById("monthlypayment").innerHTML=changeTwoDecimal(monthlypayment);
+		document.getElementById("message").innerHTML="<b id='right'>"+"Completed !"+"</b>";
+		document.getElementById("hits").innerHTML="Dear "+firname+famname+" this is yours loan calculation!";
+		document.getElementById("AR").innerHTML=changeTwoDecimal(amount);
+		document.getElementById("FP").innerHTML=pm+"<br/>"+year;
+		document.getElementById("Insurance").innerHTML=getInsurance();
+		document.getElementById("TR").innerHTML=changeTwoDecimal(totalrepay);
+		document.getElementById("TI").innerHTML=changeTwoDecimal(totalinterest);
+		document.getElementById("monthlypayment").innerHTML=changeTwoDecimal(monthlypayment);
 	}
 }
 function month(){                   /*the function to show the options of which 6 months can users to pay*/
