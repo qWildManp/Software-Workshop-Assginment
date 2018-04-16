@@ -170,7 +170,7 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 	var month_s=month.toString();                               /*change month value into string type*/
 	var monthCheck=month_s.indexOf('.')							/*count the number '.' in user's time request*/
 	var pm=document.getElementById("paymentMonth").value;       /*user paymonth*/
-	var mailCheck1=email.indexOf('@');	/*count the number of '@' in email*/
+	var mailCheck1=email.indexOf('@');							/*count the number of '@' in email*/
 	var time= new Date();
 	var year= time.getFullYear();
 	var totalRepay= parseFloat(getInsurance())+parseFloat(CalculateRepayment());
@@ -186,18 +186,8 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("TI").innerHTML="";
 		document.getElementById("monthlyPayment").innerHTML="";
 	}
-	else if (mailCheck1<0){ /*check user's email format.If dont have symbol '@',output erro message*/
-		document.getElementById("message").innerHTML="<b id='erro'>"+"Erro! Incorrect mailbox format"+"</b>";
-		document.getElementById("hits").innerHTML="";
-		document.getElementById("AR").innerHTML="";
-		document.getElementById("FP").innerHTML="";
-		document.getElementById("Insurance").innerHTML="";
-		document.getElementById("TR").innerHTML="";
-		document.getElementById("TI").innerHTML="";
-		document.getElementById("monthlyPayment").innerHTML="";
-	}
-	else if(monthCheck>0){/*check user's time request. If it is float,output erro message*/
-		document.getElementById("message").innerHTML="<b id='erro'>"+"Erro! Incorrect month request Please input an intager"+"</b>";
+	else if (mailCheck1<0||monthCheck>0){ /*check user's email format.If dont have symbol '@',output erro message;check user's time request. If it is float,output erro message*/
+		document.getElementById("message").innerHTML="<b id='erro'>"+"Erro! Incorrect format"+"<br/>"+"Warning: Please check email format correct or not and your time request must be an intager !"+"</b>";
 		document.getElementById("hits").innerHTML="";
 		document.getElementById("AR").innerHTML="";
 		document.getElementById("FP").innerHTML="";
@@ -214,14 +204,15 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("TR").innerHTML=changeTwoDecimal(totalRepay);
 		document.getElementById("TI").innerHTML=changeTwoDecimal(totalInterest);
 		document.getElementById("monthlyPayment").innerHTML=changeTwoDecimal(monthlyPayment);
+		lastPayMonth();
 	}
 }
-function month(){                   /*the function to show the options of which 6 months can users to pay*/
+function month(){/*the function to show the options of which 6 months can users to pay*/
 	var text="";
-	var present=new Date();			/*get present time*/
+	var present=new Date();				/*get present time*/
 	var presentMonth=present.getMonth();/*get presentmonth*/
 	var standerd=present.getMonth();	/*regard present month as a origin month*/ 	
-	var month= new Array(17)		/*define each number for months*/
+	var month= new Array(17)			/*define each number for months*/
 	month[0]="January"                
 	month[1]="February"
 	month[2]="March"
@@ -247,7 +238,7 @@ function month(){                   /*the function to show the options of which 
 
 //FUNCTIONS FOR LIMIT USER INPUT
 
-function limitMoney(){                 /*function to limit the moneyamount that users input */
+function limitMoney(){/*function to limit the moneyamount that users input */
 	var money=document.getElementById("amount").value;
 	if(money>10000){
 		document.getElementById("amount").value=10000;
@@ -256,7 +247,7 @@ function limitMoney(){                 /*function to limit the moneyamount that 
 		document.getElementById("amount").value=1000;
 	}
 }
-function limitTime(){                /*function to limit the time request that users input */
+function limitTime(){/*function to limit the time request that users input */
 	var month=document.getElementById("month").value;
 	if(month>120){
 		  document.getElementById("month").value=120;
@@ -269,33 +260,36 @@ function limitTime(){                /*function to limit the time request that u
 
 //FUNCTION FOR CALCULATE
 
-function getInsurance(){                  /*user chose a kind of insurance and return a certain value*/
+function getInsurance(){/*user chose a kind of insurance and return a certain value*/
 	var insurance=document.getElementById("context").insurance.value;
 	var fee=0;
-	switch(insurance){
+	switch(insurance){            /*chose No cover required*/
 		case "N":{
 		fee=0;
 		document.getElementById("Insurance").innerHTML=fee;
+		return fee;			     /*return fee value*/
+		break;}
+		
+		case "EC":{              /*chose Employment Cover-in the event you lose your job up to 3 months*/
+		fee=100; 
+		document.getElementById("Insurance").innerHTML=changeTwoDecimal(fee);
 		return fee;
 		break;}
-		case "EC":{
-		fee=100;
-		document.getElementById("Insurance").innerHTML=fee;
-		return fee;
-		break;}
-		case "PC":{
+
+		case "PC":{				/*chose Part Cover-up to 12 months*/
 		fee=150;
-		document.getElementById("Insurance").innerHTML=fee;
+		document.getElementById("Insurance").innerHTML=changeTwoDecimal(fee);
 		return fee;
 		break;}
-		case "FC":{
+
+		case "FC":{				/*chose Full Cover -In the event you cannot work again!*/
 		fee=300;
-		document.getElementById("Insurance").innerHTML=fee;
+		document.getElementById("Insurance").innerHTML=changeTwoDecimal(fee);
 		return fee;
 		break;}
 	}
 }
-function CalculateRepayment(){                      /*function to calculate repayment*/
+function CalculateRepayment(){/*function to calculate repayment*/
 	var month=document.getElementById("month").value;
 	var money=document.getElementById("amount").value;
 	var result;	
@@ -303,34 +297,83 @@ function CalculateRepayment(){                      /*function to calculate repa
 		result= money*(1+0.022)**month;
 		return result;
 	}
-	else if(month>36&&month<=60){         /*time is more than 3 years but less than 5 years*/
+	else if(month>36&&month<=60){        	  /*time is more than 3 years but less than 5 years*/
 		result= money*(1+0.033)**month;
 		return result;
 	}
-	else if(month>60&&month<=84){        /*time is more than 5 years but less than 7 years*/
+	else if(month>60&&month<=84){        	  /*time is more than 5 years but less than 7 years*/
 		result= money*(1+0.044)**month;	
 		return result;	
 	}
-	else{											/*time is more than 7 years*/
+	else{									  /*time is more than 7 years*/
 		result= money*(1+0.055)**month;
 		return result;
 	}
 }
-function changeTwoDecimal(x){ 	             /*function to limit float number*/
+function changeTwoDecimal(x){/*function to limit float number*/
     /*the method to deal with the number that decimal digits is more than 2*/
+	
     var f_x = parseFloat(x);                     /*let all types of var become float*/
     f_x = Math.round(f_x*100)/100;               /*first let number mutiple 100 and then divied by 100, the unmber will keep two decimal digits*/
-    /*the method to deal with the number that decimal digits is less than 2*/                   
+    /*the method to deal with the number that decimal digits is less than 2*/    
+
     var s_x = f_x.toString();                    /*change the var type into string so that we can add "."and"0"behind the number*/
     var pos_decimal = s_x.indexOf('.');          /*check the number "." in a number*/
-    if (pos_decimal < 0){						/*if a number doesn't have ".",then add one*/
-    pos_decimal = s_x.length;                   /*input string length*/
-    s_x += '.';									/*add "."*/
+    if (pos_decimal < 0){						 /*if a number doesn't have ".",then add one*/
+    pos_decimal = s_x.length;                    /*input string length*/
+    s_x += '.';									 /*add "."*/
     }
-    while (s_x.length <= pos_decimal + 2){      /*function to add "0",if number length is shorter than (numberlength+2)*/
-    s_x += '0';									/*add "0"*/
+    while (s_x.length <= pos_decimal + 2){       /*function to add "0",if number length is shorter than (numberlength+2)*/
+    s_x += '0';									 /*add "0"*/
     }
-    return s_x;									/*return fixed number*/
+    return s_x;									 /*return fixed number*/
+}
+function lastPayMonth(){
+	var monthlist= new Array(17)
+                monthlist[0]="January"
+                monthlist[1]="February"
+                monthlist[2]="March"
+                monthlist[3]="April"
+                monthlist[4]="May"
+                monthlist[5]="June"
+                monthlist[6]="July"
+                monthlist[7]="August"
+                monthlist[8]="September"
+                monthlist[9]="October"
+                monthlist[10]="November"
+                monthlist[11]="December"
+                monthlist[12]="Next year January"
+	            monthlist[13]="Next year February"
+	            monthlist[14]="Next year March"
+	            monthlist[15]="Next year April"
+	            monthlist[16]="Next year May"
+	var paymentMonth=document.getElementById("paymentMonth").value;
+	var month=document.getElementById("month").value;
+	var time=new Date();
+	var a=0;
+    var result=0;
+    var i;
+    for(;a<17;a++){
+        if(monthlist[a]==paymentMonth){
+            result=a;
+            break;
+        }
+    }
+	var n=0;
+    var year=time.getFullYear()
+    var newyear=0;
+    var month=time.getMonth()+(result-time.getMonth())+parseInt(month);
+    if(month>11){
+        for(var i=month;i>=12;i=i-12){  
+            n++;
+        }
+		newyear=year+n;
+		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
+	}
+	else{
+		newyear=year+n;
+		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
+	}
 }
 
 </script>

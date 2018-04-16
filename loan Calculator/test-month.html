@@ -1,13 +1,16 @@
 <html>
     <body>
-            <select id='a'> </select>
+            <select id='a' onfocusin="monthdisplay()"> </select>
+            <input type="number" id="b">
+            <p id="out"></p>
+            <button onclick="month()"> out</button>
         <script>
-                var text="";
+    function monthdisplay(){            var text="";
                 var present=new Date();
-                var standerd=present.getMonth();
-                var presentmonth=present.getMonth();
+                var standerd=present.getMonth()+7;
+                var presentmonth=present.getMonth()+7;
                 var month= new Array(12)
-                month[0]="January"
+                    month[0]="January"
                     month[1]="February"
                     month[2]="March"
                     month[3]="April"
@@ -19,10 +22,63 @@
                     month[9]="October"
                     month[10]="November"
                     month[11]="December"
+                    month[12]="Next year January"
+	                month[13]="Next year February"
+	                month[14]="Next year March"
+	                month[15]="Next year April"
+	                month[16]="Next year May"
                 for( presentmonth; presentmonth<=standerd+6; presentmonth++){
                     text+="<option>"+month[presentmonth]+"</option>"
                 }
-                document.getElementById("a").innerHTML=text;
+                document.getElementById("a").innerHTML=text;}
+function month(){
+    var monthlist= new Array(12)
+                monthlist[0]="January"
+                monthlist[1]="February"
+                monthlist[2]="March"
+                monthlist[3]="April"
+                monthlist[4]="May"
+                monthlist[5]="June"
+                monthlist[6]="July"
+                monthlist[7]="August"
+                monthlist[8]="September"
+                monthlist[9]="October"
+                monthlist[10]="November"
+                monthlist[11]="December"
+                monthlist[12]="Next year January"
+	            monthlist[13]="Next year February"
+	            monthlist[14]="Next year March"
+	            monthlist[15]="Next year April"
+	            monthlist[16]="Next year May"
+    var x=document.getElementById("a").value;
+    var y=document.getElementById("b").value;
+    var time=new Date();
+    var a=0;
+    var result=0;
+    for(;a<17;a++){
+        if(monthlist[a]==x){
+            result=a;
+            break;
+        }
+    }
+    var n=0;
+    var year=time.getFullYear()
+    var newyear=0;
+    var month=time.getMonth()+(result-time.getMonth())+parseInt(y);
+    if(month>11){
+        for(var i=month;i>=12;i=i-12){  
+            n++;
+        }
+        newyear=year+n;
+        document.getElementById("out").innerHTML=monthlist[i]+"<br/>"+newyear;
+    }
+    else{
+       var i=month;
+        newyear=year+n;
+        document.getElementById("out").innerHTML=monthlist[i]+"<br/>"+newyear;
+    }
+}
+
         </script>        
     </body>
 </html>
