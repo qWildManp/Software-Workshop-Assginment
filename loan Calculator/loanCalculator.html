@@ -332,23 +332,23 @@ function changeTwoDecimal(x){/*function to limit float number*/
 }
 function lastPayMonth(){/*function to calculate the last payment month*/
 	var monthlist= new Array(17)  /*define a month list*/
-                monthlist[0]="January"
-                monthlist[1]="February"
-                monthlist[2]="March"
-                monthlist[3]="April"
-                monthlist[4]="May"
-                monthlist[5]="June"
-                monthlist[6]="July"
-                monthlist[7]="August"
-                monthlist[8]="September"
-                monthlist[9]="October"
-                monthlist[10]="November"
-                monthlist[11]="December"
-                monthlist[12]="Next year January"
-	            monthlist[13]="Next year February"
-	            monthlist[14]="Next year March"
-	            monthlist[15]="Next year April"
-	            monthlist[16]="Next year May"
+    monthlist[0]="January"
+    monthlist[1]="February"
+    monthlist[2]="March"
+    monthlist[3]="April"
+    monthlist[4]="May"
+    monthlist[5]="June"
+    monthlist[6]="July"
+    monthlist[7]="August"
+    monthlist[8]="September"
+    monthlist[9]="October"
+    monthlist[10]="November"
+    monthlist[11]="December"
+    monthlist[12]="Next year January"
+	monthlist[13]="Next year February"
+	monthlist[14]="Next year March"
+	monthlist[15]="Next year April"
+	monthlist[16]="Next year May"
 	var paymentMonth=document.getElementById("paymentMonth").value;/*get the user's payment month*/
 	var month=document.getElementById("month").value;/*get user's time request*/
 	var time=new Date();
@@ -373,6 +373,7 @@ function lastPayMonth(){/*function to calculate the last payment month*/
 		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
 	}
 	else{/*if time request is smaller than 12*/
+		var i=month;
 		newyear=year+n;
 		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
 	}
