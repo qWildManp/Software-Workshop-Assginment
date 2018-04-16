@@ -181,7 +181,7 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("hits").innerHTML="";
 		document.getElementById("AR").innerHTML="";
 		document.getElementById("FP").innerHTML="";
-        document.getElementById("LP").innerHTML="";
+		document.getElementById("LP").innerHTML="";
 		document.getElementById("Insurance").innerHTML="";	
 		document.getElementById("TR").innerHTML="";
 		document.getElementById("TI").innerHTML="";
@@ -192,7 +192,7 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("hits").innerHTML="";
 		document.getElementById("AR").innerHTML="";
 		document.getElementById("FP").innerHTML="";
-        document.getElementById("LP").innerHTML="";
+		document.getElementById("LP").innerHTML="";
 		document.getElementById("Insurance").innerHTML="";
 		document.getElementById("TR").innerHTML="";
 		document.getElementById("TI").innerHTML="";
@@ -330,8 +330,8 @@ function changeTwoDecimal(x){/*function to limit float number*/
     }
     return s_x;									 /*return fixed number*/
 }
-function lastPayMonth(){
-	var monthlist= new Array(17)
+function lastPayMonth(){/*function to calculate the last payment month*/
+	var monthlist= new Array(17)  /*define a month list*/
                 monthlist[0]="January"
                 monthlist[1]="February"
                 monthlist[2]="March"
@@ -349,30 +349,30 @@ function lastPayMonth(){
 	            monthlist[14]="Next year March"
 	            monthlist[15]="Next year April"
 	            monthlist[16]="Next year May"
-	var paymentMonth=document.getElementById("paymentMonth").value;
-	var month=document.getElementById("month").value;
+	var paymentMonth=document.getElementById("paymentMonth").value;/*get the user's payment month*/
+	var month=document.getElementById("month").value;/*get user's time request*/
 	var time=new Date();
 	var a=0;
     var result=0;
     var i;
-    for(;a<17;a++){
-        if(monthlist[a]==paymentMonth){
+    for(;a<17;a++){/*function to read the payment month and return the number from the array*/
+        if(monthlist[a]==paymentMonth){/**/
             result=a;
             break;
         }
     }
-	var n=0;
-    var year=time.getFullYear()
-    var newyear=0;
-    var month=time.getMonth()+(result-time.getMonth())+parseInt(month-1);
-    if(month>11){
+	var n=0;/*define increace number of year*/
+    var year=time.getFullYear()/*get the present year*/
+    var newyear=0;/*the result of last payment year*/
+    var month=time.getMonth()+(result-time.getMonth())+(parseInt(month)-1);/*calculate the time request time*/
+    if(month>11){/*if time request is greater than 12*/
         for(var i=month;i>=12;i=i-12){  
             n++;
         }
 		newyear=year+n;
 		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
 	}
-	else{
+	else{/*if time request is smaller than 12*/
 		newyear=year+n;
 		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
 	}
