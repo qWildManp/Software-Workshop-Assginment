@@ -362,7 +362,7 @@ function lastPayMonth(){
 	var n=0;
     var year=time.getFullYear()
     var newyear=0;
-    var month=time.getMonth()+(result-time.getMonth())+parseInt(month);
+    var month=time.getMonth()+(result-time.getMonth())+parseInt(month-1);
     if(month>11){
         for(var i=month;i>=12;i=i-12){  
             n++;
