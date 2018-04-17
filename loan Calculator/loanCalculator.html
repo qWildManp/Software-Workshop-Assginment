@@ -171,11 +171,11 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 	var monthCheck=month_s.indexOf('.')							/*count the number '.' in user's time request*/
 	var pm=document.getElementById("paymentMonth").value;       /*user paymonth*/
 	var mailCheck1=email.indexOf('@');							/*count the number of '@' in email*/
-	var time= new Date();
-	var year= time.getFullYear();
-	var totalRepay= parseFloat(getInsurance())+parseFloat(CalculateRepayment());
-	var totalInterest=parseFloat(CalculateRepayment())-parseFloat(amount);
-	var monthlyPayment=parseFloat(totalRepay)/parseFloat(month);
+	var time= new Date();                                       /*get present time*/
+	var year= time.getFullYear();                               /*get pesent year*/
+	var totalRepay= parseFloat(getInsurance())+parseFloat(CalculateRepayment());   /*calculate the total repayment*/
+	var totalInterest=parseFloat(CalculateRepayment())-parseFloat(amount);         /*calculate the total interest*/
+	var monthlyPayment=parseFloat(totalRepay)/parseFloat(month);                   /*calculate month payment*/
 	if(!firname||!famname||!email||!amount||!month||!pm){ /*if user miss any detail*/
 		document.getElementById("message").innerHTML="<b id='erro'>"+"Erro! Please Complte your personal details"+"</b>";
 		document.getElementById("hits").innerHTML="";
@@ -269,8 +269,8 @@ function firstpaymentcase(){/*deal with the case that user chose next year month
         }
     }
 	if(a>11){
-		year+=1;
-		document.getElementById("FP").innerHTML=monthlist[a-12]+"<br/>"+year;
+		year+=1;/*get next year value*/
+		document.getElementById("FP").innerHTML=monthlist[a-12]+"<br/>"+year; /*display first payment*/
 	}
 }
 
@@ -398,20 +398,20 @@ function lastPayMonth(){/*function to calculate the last payment month*/
         }
     }
 	var n=0;/*define increace number of year*/
-    var year=time.getFullYear()/*get the present year*/
-    var newyear=0;/*the result of last payment year*/
+    var year=time.getFullYear()                                            /*get the present year*/
+    var newyear=0;                                                         /*the result of last payment year*/
     var month=time.getMonth()+(result-time.getMonth())+(parseInt(month)-1);/*calculate the time request time*/
     if(month>11){/*if time request is greater than 12*/
         for(var i=month;i>=12;i=i-12){  
-            n++;
+            n++;                             /*get increace number of year*/
         }
-		newyear=year+n;
-		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
+		newyear=year+n;                      /*get the last payment year*/
+		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;/*display the last payment*/
 	}
 	else{/*if time request is smaller than 12*/
 		var i=month;
 		newyear=year+n;
-		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;
+		document.getElementById("LP").innerHTML=monthlist[i]+"<br/>"+newyear;/*display the last payment*/
 	}
 }
 
