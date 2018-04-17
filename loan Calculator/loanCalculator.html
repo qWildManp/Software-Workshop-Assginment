@@ -203,6 +203,7 @@ function userDetail(){ /*function to check if user complete his(hers) details*/
 		document.getElementById("hits").innerHTML="Dear "+firname+famname+" this is yours loan calculation!";
 		document.getElementById("AR").innerHTML=changeTwoDecimal(amount);
 		document.getElementById("FP").innerHTML=pm+"<br/>"+year;
+		firstpaymentcase();
 		document.getElementById("TR").innerHTML=changeTwoDecimal(totalRepay);
 		document.getElementById("TI").innerHTML=changeTwoDecimal(totalInterest);
 		document.getElementById("monthlyPayment").innerHTML=changeTwoDecimal(monthlyPayment);
@@ -236,6 +237,41 @@ function month(){/*the function to show the options of which 6 months can users 
     	text+="<option>"+month[presentMonth]+"</option>"
 	}
 	document.getElementById("paymentMonth").innerHTML=text;
+}
+function firstpaymentcase(){/*deal with the case that user chose next year month to pay*/
+	var monthlist= new Array(17)  /*define a month list*/
+    monthlist[0]="January"
+    monthlist[1]="February"
+    monthlist[2]="March"
+    monthlist[3]="April"
+    monthlist[4]="May"
+    monthlist[5]="June"
+    monthlist[6]="July"
+    monthlist[7]="August"
+    monthlist[8]="September"
+    monthlist[9]="October"
+    monthlist[10]="November"
+    monthlist[11]="December"
+    monthlist[12]="Next year January"
+	monthlist[13]="Next year February"
+	monthlist[14]="Next year March"
+	monthlist[15]="Next year April"
+	monthlist[16]="Next year May"
+	var pm=document.getElementById("paymentMonth").value;
+	var a=0;
+    var result=0;
+	var time=new Date();
+	var year=time.getFullYear()
+	for(;a<17;a++){/*function to read the payment month and return the number from the array*/
+        if(monthlist[a]==pm){/*if monthlist[a] value = paymentMoth value then get the array adress*/
+            result=a;
+            break;
+        }
+    }
+	if(a>11){
+		year+=1;
+		document.getElementById("FP").innerHTML=monthlist[a-12]+"<br/>"+year;
+	}
 }
 
 //FUNCTIONS FOR LIMIT USER INPUT
@@ -356,7 +392,7 @@ function lastPayMonth(){/*function to calculate the last payment month*/
     var result=0;
     var i;
     for(;a<17;a++){/*function to read the payment month and return the number from the array*/
-        if(monthlist[a]==paymentMonth){/**/
+        if(monthlist[a]==paymentMonth){/*if monthlist[a] value = paymentMoth value then get the array adress*/
             result=a;
             break;
         }
