@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<style>
+#container{position: relative;
+           background-color:lightblue;
+           width: 700px;
+           height:600px;
+           }
+
+#inputDiv {background-color: blue;
+			width:250px;
+			height:400px;
+            color:yellow;
+ }
+ h2{
+     color: green;
+     text-align: center;
+      }
+#commentBox{
+    position: absolute;;
+    background-color:lightyellow; 
+    width:250px;
+	height:400px;
+    right:10px;
+    top:50px;
+    color:blue;
+}
+</style>
+<body>
+<div id="container">
+<h2>Credit Card Payoff Task</h2>
+
+<div id="inputDiv">
+        Title<br/>
+		<input type="radio" name="title" value="Ms" checked /> Ms<br>
+		<input type="radio" name="title" value="Mr" /> Mr<br>
+		<input type="radio" name="title" value="Dr" /> Dr<br>
+		<input type="radio" name="title" value="Prof" /> Prof<br>
+ 
+		First Name<br/>
+		<input type="text"   id="firstName"   /><br/>
+		Family Name<br/>
+		<input type="text"   id="familyName"  /><br/>
+		Remaining Amount<br/>
+		<input type="number" id="remaining"   /><br/>
+		Monthly Payment<br/>
+		<input type="number" id="monthly"     /><br/>
+		Last Payment<br/>
+		<input type="text"   id="lastPayment" disabled> <br/>
+		Number of Payments<br/>
+		<input type="text" id="numOfPayments" disabled> <br/><br/>
+		<button onclick="myFunction()">submit</button>
+</div>
+
+<div id="commentBox">
+    <p id="user"></p><br/><br/>
+    <p id="details"></p>
+</div>
+</div>
+
+<script>
+
+function myFunction(){ // do not change the name of the function
+	
+	var title = getTitle(); // complete the function gettitle() below to get the title
+	var fName = document.getElementById("firstName").value;
+	var famName = document.getElementById("familyName").value;
+	var remainingAmount = Number(document.getElementById('remaining').value);
+	var monthly = Number(document.getElementById('monthly').value);
+	var interest = 1.9/100; 
+	var lastPayment=0;
+    var months= 0;
+    if(remainingAmount<monthly){
+        document.getElementById("details").innerHTML="Erro!!"
+
+    }
+    else{
+    for(months=0;remainingAmount>0;months++){
+        remainingAmount=(remainingAmount-monthly)*(1+interest);
+        if((remainingAmount-monthly)*(1+interest)<0){
+            months=months+2;
+            break;
+        }
+    }
+	document.getElementById("lastPayment").value=remainingAmount.toFixed(2);
+    document.getElementById("numOfPayments").value=(months);
+	printComments(title,fName,famName,months,lastPayment,monthly);
+    }
+
+}
+
+
+function printComments(title, fn, fam, numOfMths, lastPayment, monthly){
+    var monthly = Number(document.getElementById('monthly').value);
+	var fName = document.getElementById("firstName").value;
+	var famName = document.getElementById("familyName").value;
+    var numOfPayments =  document.getElementById("numOfPayments").value;
+    var lastPayment=Number(document.getElementById("lastPayment").value).toFixed(2);
+    document.getElementById("user").innerHTML="Dear "+title+" "+fName+" "+famName+",</br>";
+    document.getElementById("details").innerHTML="paying "+monthly+" per month will take "+numOfPayments+" months and your Last Payment is "+lastPayment;
+//	title - title from radio buttons
+//	fn - first name
+//	fam -  fammily name
+//	numOfMths - number of months to pay off the remaining
+//	lastPayment -  last payment amount
+//	monthly - payment per month 
+
+// code here - output to <div id="commentBox"></div>  
+
+
+}
+
+
+function getTitle(){
+    var radios=document.getElementsByName('title');
+    var title=-1;
+    for (var i=0,lengh=radios.length;i<lengh;i++){
+        if(radios[i].checked){
+            title=radios[i].value;
+            break;   
+         }
+    }
+      return title;
+	
+
+	 // you must use this statement
+}
+
+
+</script>
+
+</body>
+</html>
