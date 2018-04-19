@@ -1,0 +1,85 @@
+<html>
+<head>
+<style>
+
+#namelist{
+		position: absolute;
+		background-color:orangered;
+		color:white;
+		width:300px;
+		height:400px;
+		left:300px;
+		top:10px;
+}
+#output{
+	color:white;
+}
+#nameNumber{
+		position: absolute;
+		background-color: orangered;
+		text-align: center;
+		font-size: 20px;
+		color:white;
+		width:300px;
+		height: 70px;
+		left:300px;
+		top:450px;
+}
+</style>
+</head>
+<body>
+<input type="text" id="names"><br/><br/>
+<button onclick="addName()">Add Name</button><br/><br/>
+<button onclick="removeName()">Remove Name</button></br/><br/>
+<button onclick="SortAZ()">Sort A-Z</button><br/><br/>
+<button onclick="SortZA()">Sort Z-A</button>
+
+<div id="namelist">
+<h2 style="text-align:center">Name List<h2>
+<p id="output"></p>
+</div>
+
+<div id="nameNumber">
+<p id="number"></p>
+</div>
+</body>
+<script>
+
+
+var namelist; 
+namelist=["Jeremy","Rachel","Nina","Steven"];
+loop();
+function loop(){
+var namelen=namelist.length;
+var text="<ol>";
+for(var i=0;i<namelen;i++){
+	text +="<li>"+namelist[i]+"</li>";
+}
+text+="</ol>"
+document.getElementById("output").innerHTML=text;
+document.getElementById("number").innerHTML="The list has "+"<span style='color:yellow'>"+namelen+"</span>"+" names!"
+}
+
+function addName(){
+	var addName=document.getElementById("names").value;
+	if(addName!=""){
+	namelist.push(addName);
+	loop();}
+	}
+function removeName(){
+	namelist.pop();
+	loop();
+}
+
+function SortAZ(){
+	namelist.sort();
+	loop();
+}
+
+function SortZA(){
+	namelist.sort().reverse();
+	loop();
+}
+</script>
+
+</html>
