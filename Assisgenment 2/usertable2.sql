@@ -1,0 +1,1 @@
+create table usertable (cutomernumber int(10) primary key auto_increment, username varchar(30), password varchar(30), id_number varchar(18), firstname varchar(30), familyname varchar (30), age int(3), gender varchar(1), houseloan varchar(1), mastercard varchar(1), visacard varchar(1), storecard varchar(1), otherloan varchar(1), creditscore int(10));
