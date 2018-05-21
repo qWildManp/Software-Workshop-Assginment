@@ -20,7 +20,7 @@
             die("Connection failed: " . $conn->connect_error);
         }
         $nameErr=$pwdErr=$confirErr=$fnameErr=$firnameErr=$idErr=$genderErr=$loanErr="";
-        $lvalues=$gvalue=$pvalue=$age=0;
+        $lvalues=$lvalue=$gvalue=$pvalue=$age=0;
         $name=$userpwd=$familyname=$firstname=$id=$loan=$gender="";
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(empty($_POST["username"])){
@@ -75,15 +75,17 @@
                 $idErr = "Invalid id number";
                 }
                 else{
-                        $y = substr($id,6,4);
-                        $m = substr($id,10,2);
-                        $d = substr($id,12,2);
-                        $now = strtotime("today");
-                        $today = date("Ymd",$now);
-                        $birth = strtotime(substr($id,6,8));
-                        $agey = date('Y')-$y;
+                        $y = (int)substr($id,6,4);
+                        $m = (int)substr($id,10,2);
+                        $d = (int)substr($id,12,2);
+                        $today = (int)date("md");
+                        $birth =(int)substr($id,10,4);
+                        $agey = date("Y")-$y;
                         if($today<$birth){
                             $age=$agey-1;
+                        }
+                        else{
+                            $age=$agey;
                         }
                         if($age<18){
                             $idErr = "You are under 18 years old";
@@ -145,7 +147,7 @@
                 $lvalues = 0;
                 foreach($loan = $_POST["Loan"] as $i){
                     switch($i){
-                        case "Loan for the house" :{$lvalue = 200;break;}
+                        case "Loanforthehouse" :{$lvalue = 200;break;}
                         case "MasterCard" : {$lvalue = 55;break;}
                         case "Visa" : {$lvalue = 50;break;}
                         case "StoreCard" : {$lvalue = -25;break;}
@@ -200,7 +202,7 @@ function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loa
         }
     }
     if($age<18){
-        echo "Failed";
+        echo "Faild";
     }
     else{
     $sql = "INSERT INTO usertable (username,password,id_number,firstname,familyname,age,gender,houseloan,mastercard,visacard,storecard,otherloan,creditscore) VALUES('$name','$pwd','$id','$firstname','$familyname','$age','$gender','$houseloan','$mastercard','$visacard','$storecard','$otherloan','$creditscore')";
