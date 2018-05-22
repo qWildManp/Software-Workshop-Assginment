@@ -4,6 +4,16 @@
             .error{
                 color:red;
             }
+            #loginGUI{
+                width : 450px;
+                height: 300px;
+                position:absolute;
+                border-collapse:collapse;
+                border:3px solid cadetblue;
+                padding-left: 40px;
+                left:700px;
+                top :300px;
+            }
         </style>
     </head>
 	<body>
@@ -51,9 +61,11 @@
     }
 
     ?>
+    <div id="loginGUI">
+     <h1 style="text-align: center">Login</h1>
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" method="POST">
 		User Name : <input type="text" name="username"><span class="error">* <?php echo $nameErr;?></span><br/><br/>
-		Password : <input type="text" name="userpwd"><span class="error">* <?php echo $pwdErr;?></span><br/><br/>
+		Password  : <input type="text" name="userpwd"><span class="error">* <?php echo $pwdErr;?></span><br/><br/>
 		<input type="submit" name="Submit" ><span class="error"><?php echo $loginErr;?></span>
         <?php
               echo "<table border=1>";
@@ -64,5 +76,6 @@
         ?>
 	</form>
     <a href="registration.php" >New user ?</a>
+    </div>
 	</body>
 </html>

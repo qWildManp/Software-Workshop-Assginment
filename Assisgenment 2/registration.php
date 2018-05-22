@@ -4,6 +4,16 @@
             .error{
                 color:red;
             }
+            #registGUI{
+                width : 450px;
+                height : 650px;
+                position : absolute;
+                border-collapse: collapse;
+                border : 3px solid cadetblue;
+                left :700px;
+                top :200px;
+                padding-left: 20px;
+            }
         </style>
     </head>
     <body>
@@ -21,7 +31,7 @@
         }
         $nameErr=$pwdErr=$confirErr=$fnameErr=$firnameErr=$idErr=$genderErr=$loanErr="";
         $lvalues=$lvalue=$gvalue=$pvalue=$age=0;
-        $name=$userpwd=$familyname=$firstname=$id=$loan=$gender="";
+        $name=$userpwd=$familyname=$firstname=$id=$loan=$gender=$confirpwd="";
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(empty($_POST["username"])){
                 $nameErr = "Username required";
@@ -53,6 +63,9 @@
             }
             if($_POST["userpwd"]!=$_POST["confirpwd"]||empty($_POST["confirpwd"])){
                  $confirErr = "Your confirmed password and new password do not match";
+            }
+            else{
+                $confirpwd = $_POST["confirpwd"];
             }
             if(empty($_POST["fname"])) {
                 $fnameErr = "Family name required";
@@ -159,8 +172,8 @@
             }
     }
 
-    if($name==""||$userpwd==""||$gender==""||$firstname==""||$familyname==""||$id==""){
-        echo "Plz complete your basic information";
+    if($name==""||$userpwd==""||$gender==""||$firstname==""||$familyname==""||$id==""||$confirpwd=""){
+            $warning = "Please complete your user information !";
     }
     else {
          $creditscore=creditScoreCalc($pvalue,$lvalues,$gvalue);
@@ -212,7 +225,9 @@ function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loa
     }
 }
 ?>
+        <div id="registGUI">
         <h1>Registration</h1>
+        <p class="error"><?php echo $warning?></p>
         <form  action = "<?php htmlspecialchars($_SERVER["PHP_SELF"])?>"method = "POST">
 
             User Name : <input type="text" name="username"><span class="error">*<?php echo $nameErr;?></span><br/><br/>
@@ -241,5 +256,6 @@ function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loa
             <input type="submit" name="submit">
         </form>
         <a href="login.php"> Already a member ?</a>
+        </div>
     </body>
 </html>
