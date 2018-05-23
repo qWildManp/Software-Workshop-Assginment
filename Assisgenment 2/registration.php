@@ -31,7 +31,8 @@
         }
         $nameErr=$pwdErr=$confirErr=$fnameErr=$firnameErr=$idErr=$genderErr=$loanErr="";
         $lvalues=$lvalue=$gvalue=$pvalue=$age=0;
-        $name=$userpwd=$familyname=$firstname=$id=$loan=$gender=$confirpwd="";
+        $name=$userpwd=$familyname=$firstname=$id=$loan=$gender=$confirpwd=$toptips="";
+        $loan = array();
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(empty($_POST["username"])){
                 $nameErr = "Username required";
@@ -153,7 +154,7 @@
                     case "Autonomous" :{$pvalue = 72;break;}
                     case "SAR" :{$pvalue = 123;break;}
                     }
-                if(empty($loan = $_POST["Loan"])){
+                if(is_array($loan = $_POST["Loan"])){
                 $lvalues = 0;
                 }
                 else{
@@ -173,18 +174,18 @@
     }
 
     if($name==""||$userpwd==""||$gender==""||$firstname==""||$familyname==""||$id==""||$confirpwd=""){
-            $warning = "Please complete your user information !";
+            $toptips = "Please complete your user information !";
     }
     else {
          $creditscore=creditScoreCalc($pvalue,$lvalues,$gvalue);
-        insertNewMember($name, $userpwd, $familyname, $firstname, $id, $age, $gender, $loan, $creditscore);
+        $toptips = insertNewMember($name, $userpwd, $familyname, $firstname, $id, $age, $gender, $loan, $creditscore,$toptips);
     }
 function creditScoreCalc($pvalue,$lvalues,$gvalue){
         $creditscore = $pvalue+$lvalues+$gvalue;
         return $creditscore;
            }
 
-function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loan,$creditscore){
+function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loan,$creditscore,$toptips){
     $servername = "localhost";
     $username = "m730026028";
     $password = "abc123xyz";
@@ -197,6 +198,7 @@ function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loa
         die("Connection failed: " . $conn->connect_error);
     }
     $houseloan=$mastercard=$visacard=$storecard=$otherloan="N";
+    if(is_array($loan)){
     foreach($loan as $loantype){
         if($loantype=="Loanforthehouse"){
             $houseloan = "Y";
@@ -214,20 +216,23 @@ function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loa
             $otherloan = "Y";
         }
     }
+    }
     if($age<18){
-        echo "Faild";
+        $toptips = "Failed";
+
     }
     else{
     $sql = "INSERT INTO usertable (username,password,id_number,firstname,familyname,age,gender,houseloan,mastercard,visacard,storecard,otherloan,creditscore) VALUES('$name','$pwd','$id','$firstname','$familyname','$age','$gender','$houseloan','$mastercard','$visacard','$storecard','$otherloan','$creditscore')";
     $conn->query($sql);
-    echo "Success";
+       $toptips =  "Success";
     $conn->close();
     }
+    return $toptips;
 }
 ?>
         <div id="registGUI">
         <h1>Registration</h1>
-        <p class="error"><?php echo $warning?></p>
+        <p class="error"><?php echo $toptips?></p>
         <form  action = "<?php htmlspecialchars($_SERVER["PHP_SELF"])?>"method = "POST">
 
             User Name : <input type="text" name="username"><span class="error">*<?php echo $nameErr;?></span><br/><br/>
