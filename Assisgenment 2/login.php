@@ -6,7 +6,7 @@
             }
             #loginGUI{
                 width : 450px;
-                height: 300px;
+                height: 500px;
                 position:absolute;
                 border-collapse:collapse;
                 border:3px solid cadetblue;
@@ -30,7 +30,7 @@
                 $servername = "localhost";
                 $username = "m730026028";
                 $password = "abc123xyz";
-                $dbname = "test";
+                $dbname = "m730026028";
 
                 // Create connection
                 $conn = new mysqli($servername, $username, $password, $dbname);

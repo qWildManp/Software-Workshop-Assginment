@@ -6,7 +6,7 @@
             }
             #registGUI{
                 width : 450px;
-                height : 650px;
+                height : 800px;
                 position : absolute;
                 border-collapse: collapse;
                 border : 3px solid cadetblue;
@@ -21,7 +21,7 @@
         $servername = "localhost";
         $username = "m730026028";
         $password = "abc123xyz";
-        $dbname = "test";
+        $dbname = "m730026028";
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -29,6 +29,8 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+
+		
         $nameErr=$pwdErr=$confirErr=$fnameErr=$firnameErr=$idErr=$genderErr=$loanErr="";
         $lvalues=$lvalue=$gvalue=$pvalue=$age=0;
         $name=$userpwd=$familyname=$firstname=$id=$loan=$gender=$confirpwd=$toptips="";
@@ -81,7 +83,8 @@
             else{
                 $firstname = $_POST["firname"];
             }
-            if(empty($id=$_POST["id"])){
+			$id=$_POST["id"];
+			if(empty($id)){
                 $idErr = "ID card number required";
             }
                 else{
@@ -173,7 +176,7 @@
             }
     }
 
-    if($name==""||$userpwd==""||$gender==""||$firstname==""||$familyname==""||$id==""||$confirpwd=""){
+    if($name==""||$userpwd==""||$gender==""||$firstname==""||$familyname==""||$id==""||$confirpwd==""){
             $toptips = "Please complete your user information !";
     }
     else {
@@ -189,7 +192,7 @@ function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loa
     $servername = "localhost";
     $username = "m730026028";
     $password = "abc123xyz";
-    $dbname = "test";
+    $dbname = "m730026028";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
