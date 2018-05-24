@@ -36,6 +36,7 @@
         $name=$userpwd=$familyname=$firstname=$id=$loan=$gender=$confirpwd=$toptips="";
         $loan = array();
         if($_SERVER["REQUEST_METHOD"] == "POST"){
+			//username check
             if(empty($_POST["username"])){
                 $nameErr = "Username required";
             }
@@ -49,10 +50,13 @@
                 }
              }
 
-            if(empty($_POST["userpwd"])){
+			 
+			 //password check
+            if(empty($_POST["userpwd"])){//if user don't input password
                 $pwdErr = "Password required";
             }
             else{
+				//password Invalidation
                 if(!preg_match("/^(?=.*\d{2,})(?=.*[a-z]{2,})(?=.*[^0-9a-zA-Z]{2})[A-Z]{1}.{8,}[A-Z]{1}$/",$_POST["userpwd"])){
                 $pwdErr = "•	10 + characters
                            •	Start and end with uppercase
@@ -64,12 +68,18 @@
                     $userpwd = $_POST["userpwd"];
                 }
             }
+			
+			
+			//password confirom
             if($_POST["userpwd"]!=$_POST["confirpwd"]||empty($_POST["confirpwd"])){
                  $confirErr = "Your confirmed password and new password do not match";
             }
             else{
                 $confirpwd = $_POST["confirpwd"];
             }
+			
+			
+			//familyname check
             if(empty($_POST["fname"])) {
                 $fnameErr = "Family name required";
             }
@@ -77,21 +87,26 @@
                     $familyname = $_POST["fname"];
                 }
 
+				
+			//firstname check
             if(empty($_POST["firname"])){
                 $firnameErr = "First name required";
             }
             else{
                 $firstname = $_POST["firname"];
             }
+			
+			
+			//id check
 			$id=$_POST["id"];
 			if(empty($id)){
                 $idErr = "ID card number required";
             }
-                else{
+                else{//id Invalidation
                     if(!preg_match("/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/",$_POST["id"])){
                 $idErr = "Invalid id number";
                 }
-                else{
+                else{   //calculate age and age check
                         $y = (int)substr($id,6,4);
                         $m = (int)substr($id,10,2);
                         $d = (int)substr($id,12,2);
@@ -109,6 +124,9 @@
                         }
                     }
                 }
+				
+				
+			//gender check	
             if(empty($_POST["gender"])) {
                 $genderErr = "Gender required";
             }
@@ -150,14 +168,16 @@
                         }
                     }
                 }
+				
+				
                 if($age>=18){
-                switch($_POST["province"]){
+                switch($_POST["province"]){// province value return
                     case "Municipalities" :{$pvalue = 100;break;}
                     case "Province" :{$pvalue = 60;break;}
                     case "Autonomous" :{$pvalue = 72;break;}
                     case "SAR" :{$pvalue = 123;break;}
                     }
-                if(is_array($loan = $_POST["Loan"])){
+                if(is_array($loan = $_POST["Loan"])){// loan values return
                 $lvalues = 0;
                 }
                 else{
@@ -174,20 +194,27 @@
                     }
                 }
             }
-    }
-
-    if($name==""||$userpwd==""||$gender==""||$firstname==""||$familyname==""||$id==""||$confirpwd==""){
+    } 
+	
+	
+	//userinformation check
+    if($name==""||$userpwd==""||$gender==""||$firstname==""||$familyname==""||$id==""||$confirpwd==""){ 
             $toptips = "Please complete your user information !";
     }
     else {
          $creditscore=creditScoreCalc($pvalue,$lvalues,$gvalue);
         $toptips = insertNewMember($name, $userpwd, $familyname, $firstname, $id, $age, $gender, $loan, $creditscore,$toptips);
     }
+	
+	
+//function to calculate credit scores	
 function creditScoreCalc($pvalue,$lvalues,$gvalue){
         $creditscore = $pvalue+$lvalues+$gvalue;
         return $creditscore;
            }
 
+		   
+//function to insert new user information
 function insertNewMember($name,$pwd,$familyname,$firstname,$id,$age,$gender,$loan,$creditscore,$toptips){
     $servername = "localhost";
     $username = "m730026028";
