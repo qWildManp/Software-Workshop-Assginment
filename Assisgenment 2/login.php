@@ -18,7 +18,7 @@
     </head>
 	<body>
     <?php
-    $nameErr=$pwdErr=$loginErr=$firstname=$familyname=$age=$creditscore="";
+    $nameErr=$pwdErr=$loginErr=$firstname=$familyname=$age=$creditscore=$table="";
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($_POST["username"])){
             $nameErr = "User name required";
@@ -49,8 +49,13 @@
                         $familyname = $row["familyname"];
                         $age = $row["age"];
                         $creditscore = $row["creditscore"];
-
                     }
+					 $table="<table border=1>.
+							<tr><th>Name</th><td>$firstname $familyname </td></tr>
+							<tr><th>Age</th><td>$age</td></tr>
+							<tr><th>Credit Scores</th><td>$creditscore </td></tr>
+							</table>";
+					$loginErr = "Success";
                 }
                 else {
                     $loginErr = "Login failed : incorrect password OR user name doesn't exist!";
@@ -67,15 +72,9 @@
 		User Name : <input type="text" name="username"><span class="error">* <?php echo $nameErr;?></span><br/><br/>
 		Password  : <input type="text" name="userpwd"><span class="error">* <?php echo $pwdErr;?></span><br/><br/>
 		<input type="submit" name="Submit" ><span class="error"><?php echo $loginErr;?></span>
-        <?php
-              echo "<table border=1>";
-              echo "<tr><th>Name</th><td>$firstname $familyname </td></tr>";
-              echo "<tr><th>Age</th><td>$age</td></tr>";
-              echo "<tr><th>Credit Scores</th><td>$creditscore </td></tr>";
-              echo"</table>";
-        ?>
 	</form>
-    <a href="registration.php" >New user ?</a>
+    <a href="registration.php" >New user ?</a><span>
+	<?php echo $table?></span>
     </div>
 	</body>
 </html>
