@@ -26,6 +26,10 @@
 session_start();
 $nameErr = $pwdErr = $loginErr = "";
 $name = $pwd = "";
+$servername = "localhost";
+$username = "m730026028";
+$password = "abc123xyz";
+$dbname = "cakeshop";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
